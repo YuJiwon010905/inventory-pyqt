@@ -7,8 +7,7 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("관리자 모드")
         self.db=DB(**DB_CONFIG)
-
-        # 중앙 위젯 및 레이아웃
+         # 중앙 위젯 및 레이아웃
         central=QWidget()
         self.setCentralWidget(central)
         vbox=QVBoxLayout(central)
