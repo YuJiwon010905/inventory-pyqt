@@ -55,7 +55,8 @@ class DB:
     # 재고 추가 + 재고 업데이트(완)
     def add_item(self,name,price,stock):
         # 영향을 받는 것: items 데이터베이스
-        sql="INSERT INTO items(name,price,stock) VALUES (%s, %s, %s)"
+        sql="INSERT INTO items(name,price,stock) VALUES (%s, %s, %s)" \
+        "ON DUPLICATE KEY UPDATE price = VALUES(price), stock = stock + VALUES(stock)"
         with self.connect() as conn:
             try:
                 with conn.cursor() as cur:
@@ -70,25 +71,25 @@ class DB:
     # 재고 삭제(완) -> 삭제할 상품이 존재하지 않을 때 vs 삭제할 상품이 존재할 때 case 를 따짐
     def del_item(self,delname,delnum): #삭제할 상품의 이름과, 몇개 삭제할 건지
         # 영향을 받는 것: items 데이터베이스
-        sql_sel="SELECT stock FROM items WHERE name=%s"
+        sql_sel="SELECT * FROM items WHERE name=%s"
         sql_update="UPDATE items SET stock=stock-%s WHERE name=%s"
         with self.connect() as conn:
             try:
-                with conn.cursor() as cur: #데이터베이스에 명령어를 전달할 객체를 생성
+                with conn.cursor(pymysql.cursors.DictCursor) as cur: #데이터베이스에 명령어를 전달할 객체를 생성
 
                     # 1. 제품이 존재하는지 따짐
                     cur.execute(sql_sel,(delname,))
                     product=cur.fetchone()
-
+                    
                     # 예외처리 1: 제품명 자체가 없는 경우
                     if not product:
                         return False
                     cur_stock=product['stock']
+                    print(cur_stock)
                     # 예외처리 2: 차감 수량보다 현재 재고가 적을 경우
-                    if cur_stock<delnum:
+                    if cur_stock<int(delnum):
                         return False
-                    
-                    cur.execute(sql_update,(delnum,delname)) #데이터베이스에 명령어를 전달
+                    cur.execute(sql_update,(int(delnum),delname)) #데이터베이스에 명령어를 전달
                 conn.commit()
                 return True
 

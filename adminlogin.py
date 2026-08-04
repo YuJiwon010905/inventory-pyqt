@@ -18,7 +18,7 @@ class AdminLogin(QDialog):
         form.addRow("비밀번호", self.pw)
 
         self.btn_login=QPushButton("로그인🔐")
-        self.btn_login.clocked.connect(self.try_login)
+        self.btn_login.clicked.connect(self.try_login)
 
         layout = QVBoxLayout()
         layout.addLayout(form)

@@ -2,8 +2,8 @@
 from PyQt5.QtWidgets import QDialog,QVBoxLayout,QLabel,QPushButton
 from db_helper import DB,DB_CONFIG
 
-from userlogin import UserLogin
-from adminlogin import AdminLogin
+from userlogin import *
+from adminlogin import *
 
 class LoginDialog(QDialog):
     def __init__(self,parent=None):
@@ -11,6 +11,8 @@ class LoginDialog(QDialog):
         self.setWindowTitle("Login")
         self.db=DB(**DB_CONFIG)
 
+        self.usrlogin=UserLogin()
+        self.adminlogin=AdminLogin()
 
         self.btn_usr=QPushButton("사용자🙂")
         self.btn_admin=QPushButton("관리자🛡️")
@@ -25,10 +27,14 @@ class LoginDialog(QDialog):
         self.setLayout(mode_layout)
 
     def try_userlogin(self): # user login 을 선택할 경우
-        # userlogin QDialog 를 띄운다
-        self.usrlogin=UserLogin()
+        #self.usrlogin=UserLogin()
+        self.usrlogin.exec_()
+
+        #self.close()
 
 
     def try_adminlogin(self):
-        # admin login QDialog 를 띄운다
-        self.adminlogin=AdminLogin()
+        #self.adminlogin=AdminLogin()
+        self.adminlogin.exec_()
+
+        #self.close()
