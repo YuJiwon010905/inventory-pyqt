@@ -10,7 +10,6 @@ class LoginDialog(QDialog):
         super().__init__(parent)
         self.setWindowTitle("Login")
         self.db=DB(**DB_CONFIG)
-
         self.usrlogin=UserLogin()
         self.adminlogin=AdminLogin()
 
@@ -28,13 +27,13 @@ class LoginDialog(QDialog):
 
     def try_userlogin(self): # user login 을 선택할 경우
         #self.usrlogin=UserLogin()
+        self.loginmode="user"
         self.usrlogin.exec_()
+        self.accept()
 
-        #self.close()
 
-
-    def try_adminlogin(self):
+    def try_adminlogin(self): # admin login 을 선택할 경우
         #self.adminlogin=AdminLogin()
+        self.loginmode="admin"
         self.adminlogin.exec_()
-
-        #self.close()
+        self.accept()

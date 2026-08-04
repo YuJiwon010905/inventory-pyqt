@@ -57,11 +57,11 @@ class Ui_MainWindow(object):
         self.itemTable.setGeometry(QRect(20, 100, 280, 371)) #20,100
         self.itemTable.setEditTriggers(self.itemTable.NoEditTriggers)
         self.itemTable.verticalHeader().setVisible(False)
-        self.itemTable.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        #self.itemTable.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.itemTable.setStyleSheet("QTableWidget { background-color: #ffffff; border: 1px solid #D3D3D3; }"
                                      "QHeaderView::section { background-color: #f7f5bc; font-family: 'Malgun Gothic'; font-size: 10pt; border:none; font-weight: bold; }"
                                      "QTableWidget::item { padding: 5px; }")
-
+        self.itemTable.resizeColumnsToContents()
     
         self.stackedWidget = QStackedWidget(self.tab_1)
         self.stackedWidget.setObjectName("stackedWidget")
@@ -236,6 +236,7 @@ class Ui_MainWindow(object):
         self.orderTable.setStyleSheet("QTableWidget { background-color: #ffffff; border: 1px solid #D3D3D3; }"
                                              "QHeaderView::section { background-color: #f7f5bc; font-family: 'Malgun Gothic'; font-size: 10pt; border:none; font-weight: bold; }"
                                              "QTableWidget::item { padding: 5px; }")
+        self.orderTable.resizeColumnsToContents()
 
         self.p3lab_2 = QLabel(self.tab_2)
         self.p3lab_2.setObjectName("p3lab_2")
@@ -265,7 +266,7 @@ class Ui_MainWindow(object):
         self.customTable.setStyleSheet("QTableWidget { background-color: #ffffff; border: 1px solid #D3D3D3; }"
                                              "QHeaderView::section { background-color: #f7f5bc; font-family: 'Malgun Gothic'; font-size: 10pt; border:none; font-weight: bold; }"
                                              "QTableWidget::item { padding: 5px; }")
-
+        self.customTable.resizeColumnsToContents()
         self.p3lab_3 = QLabel(self.tab_3)
         self.p3lab_3.setObjectName("p3lab_3")
         self.p3lab_3.setGeometry(QRect(20, 20, 280, 43))
@@ -379,7 +380,7 @@ class Ui_MainWindow(object):
             self.orderTable.setItem(r, 1, QTableWidgetItem(itemname))
             self.orderTable.setItem(r, 2, QTableWidgetItem(str(num)))
             self.orderTable.setItem(r, 3, QTableWidgetItem(str(orderdate)))
-        #self.orderTable.resizeColumnsToContents()
+        self.orderTable.resizeColumnsToContents()
 
     def load_items(self):
         rows = self.db.fetch_item()
@@ -388,7 +389,7 @@ class Ui_MainWindow(object):
             self.itemTable.setItem(r, 0, QTableWidgetItem(name))
             self.itemTable.setItem(r, 1, QTableWidgetItem(str(price)))
             self.itemTable.setItem(r, 2, QTableWidgetItem(str(stock)))
-        #self.itemTable.resizeColumnsToContents()
+        self.itemTable.resizeColumnsToContents()
 
     def load_customers(self):
         rows = self.db.fetch_account()
@@ -398,7 +399,7 @@ class Ui_MainWindow(object):
             self.customTable.setItem(r, 1, QTableWidgetItem(name))
             self.customTable.setItem(r, 2, QTableWidgetItem(email))
             self.customTable.setItem(r, 3, QTableWidgetItem(addr))
-        #self.customTable.resizeColumnsToContents()
+        self.customTable.resizeColumnsToContents()
 
     def add_item(self):
         name = self.name_insert.text().strip()

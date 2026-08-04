@@ -1,4 +1,6 @@
 import pymysql
+from datetime import datetime
+
 DB_CONFIG=dict(host="localhost",user="root",password="0905",
                database="orderappdb",charset="utf8")
 class DB:
@@ -126,10 +128,11 @@ class DB:
                 conn.rollback()
                 return False
     # 주문
-    def order_item(self,client,item,num,orderdate):
+    def order_item(self,email,item,num): #ok = self.db.order_item(self.user_email, name, stock)
         # 영향을 받는 것: 1) order 데이터베이스, 2) items 데이터베이스
         sql_sel="SELECT stock FROM items WHERE name=%s"
-        sql_order="INSERT INTO orders(client,item,num,orderdate) VALUES ()"
+        sql_customersel="SELECT name FROM accounts WHERE email=%s"
+        sql_order="INSERT INTO orders(client,item,num,orderdate) VALUES (%s, %s, %s, %s)"
         sql_items="UPDATE items SET stock=stock-%s WHERE name=%s"
         with self.connect() as conn:
             try:
@@ -140,12 +143,19 @@ class DB:
 
                     # 예외처리 1: 제품명 자체가 없는 경우
                     if not product:
+                        print("no product")
                         return False
                     cur_stock=product['stock']
                     # 예외처리 2: 차감 수량보다 현재 재고가 적을 경우
-                    if cur_stock<num:
+                    if cur_stock<int(num):
+                        print("not enough stock")
                         return False
-                    
+
+                    cur.execute(sql_customersel,(email,))
+                    client=cur.fetchone()[1] # 고객 이름
+                    print(client)
+                    orderdate=datetime.now()
+                    print(orderdate)
                     cur.execute(sql_order,(client,item,num,orderdate)) #주문 넣어
                     cur.execute(sql_items,(num,item)) # 재고 감소
                     conn.commit()
