@@ -1,0 +1,72 @@
+
+CREATE DATABASE IF NOT EXISTS orderappdb  DEFAULT CHARACTER SET utf8mb4;
+use orderappdb;
+
+SET FOREIGN_KEY_CHECKS=0;
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS items;
+DROP TABLE IF EXISTS accounts;
+DROP TABLE IF EXISTS admins;
+SET FOREIGN_KEY_CHECKS=1;
+
+-- ITEM 목록
+CREATE TABLE IF NOT EXISTS items(
+serialID INT PRIMARY KEY AUTO_INCREMENT,
+name VARCHAR(50) UNIQUE NOT NULL,
+price INT,
+stock INT
+);
+
+INSERT INTO items(name,price,stock)
+VALUES('로티세리 바비큐 치킨',7600,30),("스테이크 앤 치즈",8000,30),("로스트 치킨",7300,30),
+("써브웨이 클럽",6700,30),('피자썹',4500,30),('쉬림프',5500,30),('치킨 데리야끼',7900,30)
+-- 가격 및 수량을 업데이트함. 그런데 이때 price 는 덮어쓰더라도
+-- stock 을 원래 수량에서 더할수 있는 방법 없을까
+ON DUPLICATE KEY UPDATE price=VALUES(price), stock=stock+VALUES(stock);
+
+
+CREATE TABLE IF NOT EXISTS admins (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  adminname VARCHAR(50) UNIQUE NOT NULL,
+  pw VARCHAR(100) NOT NULL
+);
+
+-- username key가 중복일 경우 에러 대신 업데이트를 실행합니다.
+INSERT INTO admins (adminname, pw) VALUES ('admin', 'admin123')
+ON DUPLICATE KEY UPDATE pw=VALUES(pw);
+
+
+
+-- account 목록
+CREATE TABLE IF NOT EXISTS accounts(
+userID INT PRIMARY KEY AUTO_INCREMENT, -- 사용자고유번호
+name VARCHAR(50) UNIQUE NOT NULL, -- 이름
+email VARCHAR(100) UNIQUE NOT NULL,  -- 이메일
+pw VARCHAR(100) NOT NULL,   -- 비번
+addr VARCHAR(100)          -- 주소
+);
+
+INSERT INTO accounts(name,email,pw,addr)
+VALUES ("유지원","jiwon010905@gmail.com","dongl123","유성구 구성동"),
+("김세영","se9012@gmail.com","rlatpdud","유성구 교촌동"),
+("오범석","bummy@gmail.com","bummy","유성구 구성동"),
+("고재원","rhwpsl@gmail.com","jenny0000","서구 둔산동")
+-- 비번 및 주소를 업데이트함
+ON DUPLICATE KEY UPDATE pw=VALUES(pw),addr=VALUES(addr);
+
+-- order 목록
+CREATE TABLE IF NOT EXISTS orders(
+orderID INT PRIMARY KEY AUTO_INCREMENT,    -- 주문고유번호
+-- clientID INT, -- 고객고유번호(accounts.userID)
+-- 고객고유번호 대신 고객명으로 해도 되는지?
+clientname VARCHAR(50),
+-- itemID INT,   -- 주문물품고유번호(items.serialID)
+-- 주문물품고유번호 대신 주문물품명으로 해도 되는지?
+itemname VARCHAR(50),
+num INT,      -- 주문수량
+orderdate DATE,  -- 주문일자
+FOREIGN KEY(clientname) REFERENCES accounts(name),
+FOREIGN KEY(itemname) REFERENCES items(name)
+);
+INSERT INTO orders(clientname,itemname,num,orderdate) -- clientID 가지고 order 누가 했는지 알아야함
+VALUES ('유지원','로티세리 바비큐 치킨',1,'2026-07-30'),('김세영','써브웨이 클럽',2,'2026-07-30');
