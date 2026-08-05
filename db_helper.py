@@ -1,3 +1,5 @@
+import traceback
+
 import pymysql
 from datetime import datetime
 
@@ -128,19 +130,19 @@ class DB:
                 conn.rollback()
                 return False
     # 주문
-    def order_item(self,email,item,num): #ok = self.db.order_item(self.user_email, name, stock)
+    def order_item(self,email,name,num): #ok = self.db.order_item(self.user_email, name, stock)
         # 영향을 받는 것: 1) order 데이터베이스, 2) items 데이터베이스
-        sql_sel="SELECT stock FROM items WHERE name=%s"
+        sql_sel="SELECT * FROM items WHERE name=%s"
         sql_customersel="SELECT name FROM accounts WHERE email=%s"
-        sql_order="INSERT INTO orders(client,item,num,orderdate) VALUES (%s, %s, %s, %s)"
+        sql_order="INSERT INTO orders(clientname,itemname,num,orderdate) VALUES (%s, %s, %s, %s)"
         sql_items="UPDATE items SET stock=stock-%s WHERE name=%s"
         with self.connect() as conn:
             try:
-                with conn.cursor() as cur:
+                with conn.cursor(pymysql.cursors.DictCursor) as cur:
                     # 1. 제품이 존재하는지 따짐
-                    cur.execute(sql_sel,(item,))
+                    cur.execute(sql_sel,(name,))
                     product=cur.fetchone()
-
+                    print(product)
                     # 예외처리 1: 제품명 자체가 없는 경우
                     if not product:
                         print("no product")
@@ -152,17 +154,22 @@ class DB:
                         return False
 
                     cur.execute(sql_customersel,(email,))
-                    client=cur.fetchone()[1] # 고객 이름
-                    print(client)
-                    orderdate=datetime.now()
-                    print(orderdate)
-                    cur.execute(sql_order,(client,item,num,orderdate)) #주문 넣어
-                    cur.execute(sql_items,(num,item)) # 재고 감소
+                    client=cur.fetchone()['name'] # 고객 이름
+                    #print(client)
+                    orderdate=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                    #print(orderdate)
+                    cur.execute(sql_order,(client,name,num,orderdate)) #주문 넣어
+
+
+                    print("order inserted")
+                    cur.execute(sql_items,(num,name)) # 재고 감소
                     conn.commit()
                     return True
 
-            except Exception:
+            except Exception as e:
                 conn.rollback()
+                print(f"Database Error: {e}")
+                traceback.print_exc()
                 return False
             '''내가 해야 하는 것:'''
             

@@ -37,7 +37,11 @@ class Ui_MainWindow(object):
         # Tab 1
         self.tab_1 = QWidget()
         self.tab_1.setObjectName("tab_1")
-        self.tab_1.setStyleSheet("QWidget { background-color: #feffe0; }") 
+        self.tab_1.setStyleSheet("QWidget { background-color: #feffe0; }")
+
+        tab_1_layout = QVBoxLayout(self.tab_1)
+        tab_1_layout.setContentsMargins(20, 20, 20, 20)
+
         self.logo_label=QLabel()
         pixmap=QPixmap('subway.png')
         scaled_pixmap = pixmap.scaled(200, 100, Qt.KeepAspectRatio, Qt.SmoothTransformation)
@@ -54,7 +58,8 @@ class Ui_MainWindow(object):
         __qtablewidgetitem2 = QTableWidgetItem()
         self.itemTable.setHorizontalHeaderItem(2, __qtablewidgetitem2)
         self.itemTable.setObjectName("itemTable")
-        self.itemTable.setGeometry(QRect(20, 100, 280, 371)) #20,100
+        self.itemTable.setGeometry(QRect(20, 100, 290, 371)) #20,100
+        #self.itemTable.setContentsMargins(10, 10, 10, 10)
         self.itemTable.setEditTriggers(self.itemTable.NoEditTriggers)
         self.itemTable.verticalHeader().setVisible(False)
         #self.itemTable.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
@@ -62,10 +67,11 @@ class Ui_MainWindow(object):
                                      "QHeaderView::section { background-color: #f7f5bc; font-family: 'Malgun Gothic'; font-size: 10pt; border:none; font-weight: bold; }"
                                      "QTableWidget::item { padding: 5px; }")
         self.itemTable.resizeColumnsToContents()
-    
+        
         self.stackedWidget = QStackedWidget(self.tab_1)
         self.stackedWidget.setObjectName("stackedWidget")
-        self.stackedWidget.setGeometry(QRect(10, 10, 300, 80)) #10,10
+        self.stackedWidget.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Maximum)
+        #self.stackedWidget.setGeometry(QRect(10, 10, 300, 80)) #10,10
 
         # Page 1
         self.page_1 = QWidget()
@@ -75,26 +81,21 @@ class Ui_MainWindow(object):
         self.selectWork = QLabel(self.page_1)
         self.selectWork.setStyleSheet("font-family: 'Malgun Gothic'; font-size: 12pt; font-weight: bold;")
         self.selectWork.setObjectName("selectWork")
-        sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.selectWork.sizePolicy().hasHeightForWidth())
-        self.selectWork.setSizePolicy(sizePolicy)
-
-        self.p1layout.addWidget(self.selectWork)
+        self.selectWork.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        self.p1layout.addWidget(self.selectWork,alignment=Qt.AlignCenter)
 
         self.horizontalLayout_1 = QHBoxLayout()
         self.horizontalLayout_1.setObjectName("horizontalLayout_1")
         self.horizontalLayout_1.setSizeConstraint(QLayout.SetDefaultConstraint)
-        self.p1spacer = QSpacerItem(40, 120, QSizePolicy.Expanding, QSizePolicy.Minimum) #40,20
+        #self.p1spacer = QSpacerItem(40, 120, QSizePolicy.Expanding, QSizePolicy.Minimum) #40,20
 
-        self.horizontalLayout_1.addItem(self.p1spacer)
+        #self.horizontalLayout_1.addItem(self.p1spacer)
 
         self.add_new = QPushButton(self.page_1)
         self.add_new.setObjectName("add_new")
         self.add_new.setIcon(QIcon('free_icon_add.png'))
         self.add_new.setFixedSize(40, 40)
-        self.add_new.setIconSize(QSize(30, 30))
+        self.add_new.setIconSize(QSize(25, 25))
         self.add_new.setStyleSheet("background-color: #feffe0; border: none;") 
 
         self.horizontalLayout_1.addWidget(self.add_new)
@@ -103,7 +104,7 @@ class Ui_MainWindow(object):
         self.delete_cur.setObjectName("delete_cur")
         self.delete_cur.setIcon(QIcon('free_icon_delete.png'))
         self.delete_cur.setFixedSize(40, 40)
-        self.delete_cur.setIconSize(QSize(30, 30))
+        self.delete_cur.setIconSize(QSize(25, 25))
         self.delete_cur.setStyleSheet("background-color: #feffe0; border: none;")
         self.horizontalLayout_1.addWidget(self.delete_cur)
 
@@ -121,15 +122,15 @@ class Ui_MainWindow(object):
         self.p2layout.setObjectName("p2layout")
         self.p2lab = QLabel(self.page_2)
         self.p2lab.setObjectName("p2lab")
-        self.p2lab.setStyleSheet("font-family: 'Malgun Gothic'; font-size: 10pt; font-weight: bold;")
+        self.p2lab.setStyleSheet("font-family: 'Malgun Gothic'; font-size: 12pt; font-weight: bold;")
 
-        self.p2layout.addWidget(self.p2lab)
+        self.p2layout.addWidget(self.p2lab,alignment=Qt.AlignCenter)
 
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.p2spacer = QSpacerItem(40, 120, QSizePolicy.Expanding, QSizePolicy.Minimum) #40,20
+        #self.p2spacer = QSpacerItem(40, 120, QSizePolicy.Expanding, QSizePolicy.Minimum) #40,20
 
-        self.horizontalLayout_2.addItem(self.p2spacer)
+        #self.horizontalLayout_2.addItem(self.p2spacer)
 
         self.itemname = QLabel(self.page_2)
         self.itemname.setObjectName("itemname")
@@ -160,7 +161,11 @@ class Ui_MainWindow(object):
 
         self.add_btn = QPushButton(self.page_2)
         self.add_btn.setObjectName("add_btn")
-        self.add_btn.setStyleSheet("background-color: #ffffff; border: none;")
+        self.add_btn.setIcon(QIcon('free_icon_add.png'))
+        self.add_btn.setFixedSize(30, 30)
+        self.add_btn.setIconSize(QSize(20, 20))
+        self.add_btn.setStyleSheet("background-color: #feffe0; border: none;")
+
         self.horizontalLayout_2.addWidget(self.add_btn)
 
         self.p2layout.addLayout(self.horizontalLayout_2)
@@ -174,14 +179,14 @@ class Ui_MainWindow(object):
         self.p3layout.setObjectName("p3layout")
         self.p3lab = QLabel(self.page_3)
         self.p3lab.setObjectName("p3lab")
-        self.p3lab.setStyleSheet("font-family: 'Malgun Gothic'; font-size: 10pt; font-weight: bold;")
-        self.p3layout.addWidget(self.p3lab)
+        self.p3lab.setStyleSheet("font-family: 'Malgun Gothic'; font-size: 12pt; font-weight: bold;")
+        self.p3layout.addWidget(self.p3lab,alignment=Qt.AlignCenter)
 
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
-        self.p3spacer = QSpacerItem(40, 120, QSizePolicy.Expanding, QSizePolicy.Minimum) #40,20
+        #self.p3spacer = QSpacerItem(40, 120, QSizePolicy.Expanding, QSizePolicy.Minimum) #40,20
 
-        self.horizontalLayout_3.addItem(self.p3spacer)
+        #self.horizontalLayout_3.addItem(self.p3spacer)
 
         self.itemname_d = QLabel(self.page_3)
         self.itemname_d.setObjectName("itemname_d")
@@ -203,12 +208,23 @@ class Ui_MainWindow(object):
 
         self.del_btn = QPushButton(self.page_3)
         self.del_btn.setObjectName("del_btn")
-        self.del_btn.setStyleSheet("background-color: #ffffff; border: none;")
+        self.del_btn.setIcon(QIcon('free_icon_delete.png'))
+        self.del_btn.setFixedSize(30, 30)
+        self.del_btn.setIconSize(QSize(20, 20))
+
+        self.del_btn.setStyleSheet("background-color: #feffe0; border: none;")
         self.horizontalLayout_3.addWidget(self.del_btn)
 
         self.p3layout.addLayout(self.horizontalLayout_3)
         self.stackedWidget.addWidget(self.page_3)
         self.del_btn.clicked.connect(self.del_item)
+
+        tab_1_layout.addWidget(self.stackedWidget)
+        tab_1_layout.addWidget(self.itemTable)
+        tab_1_layout.setStretchFactor(self.stackedWidget, 0)
+        tab_1_layout.setStretchFactor(self.itemTable, 1)
+        self.tab_1.setLayout(tab_1_layout)
+
         self.tabWidget.addTab(self.tab_1, "")
         self.stackedWidget.raise_()
         self.itemTable.raise_()
@@ -216,8 +232,11 @@ class Ui_MainWindow(object):
         # Tab 2
         self.tab_2 = QWidget()
         self.tab_2.setObjectName("tab_2")
-        self.tab_2.setStyleSheet("QWidget { background-color: #feffe0; }") 
-        self.orderTable = QTableWidget(self.tab_2)
+        self.tab_2.setStyleSheet("QWidget { background-color: #feffe0; }")
+
+        tab_2_layout = QVBoxLayout(self.tab_2)
+        tab_2_layout.setContentsMargins(20, 20, 20, 20)
+        self.orderTable = QTableWidget()
         if self.orderTable.columnCount() < 4:
             self.orderTable.setColumnCount(4)
         __qtablewidgetitem3 = QTableWidgetItem()
@@ -229,7 +248,7 @@ class Ui_MainWindow(object):
         __qtablewidgetitem6 = QTableWidgetItem()
         self.orderTable.setHorizontalHeaderItem(3, __qtablewidgetitem6)
         self.orderTable.setObjectName("orderTable")
-        self.orderTable.setGeometry(QRect(20, 100, 280, 192))
+        self.orderTable.setGeometry(QRect(20, 100, 290, 192))
         self.orderTable.setColumnCount(4)
         self.orderTable.setEditTriggers(self.orderTable.NoEditTriggers)
         self.orderTable.verticalHeader().setVisible(False)
@@ -237,18 +256,25 @@ class Ui_MainWindow(object):
                                              "QHeaderView::section { background-color: #f7f5bc; font-family: 'Malgun Gothic'; font-size: 10pt; border:none; font-weight: bold; }"
                                              "QTableWidget::item { padding: 5px; }")
         self.orderTable.resizeColumnsToContents()
+        
 
-        self.p3lab_2 = QLabel(self.tab_2)
+        self.p3lab_2 = QLabel()
         self.p3lab_2.setObjectName("p3lab_2")
-        self.p3lab_2.setGeometry(QRect(20, 20, 280, 43))
+        #self.p3lab_2.setGeometry(QRect(20, 20, 290, 43))
         self.p3lab_2.setStyleSheet("font-family: 'Malgun Gothic'; font-size: 12pt; font-weight: bold;")
+        tab_2_layout.addWidget(self.p3lab_2, alignment=Qt.AlignCenter)
+        tab_2_layout.addWidget(self.orderTable)
+
+        self.tab_2.setLayout(tab_2_layout)
         self.tabWidget.addTab(self.tab_2, "")
 
         # Tab 3``
         self.tab_3 = QWidget()
         self.tab_3.setObjectName("tab_3")
-        self.tab_3.setStyleSheet("QWidget { background-color: #feffe0; }") 
-        self.customTable = QTableWidget(self.tab_3)
+        self.tab_3.setStyleSheet("QWidget { background-color: #feffe0; }")
+        tab_3_layout = QVBoxLayout(self.tab_3)
+        tab_3_layout.setContentsMargins(20, 20, 20, 20)
+        self.customTable = QTableWidget()
         if self.customTable.columnCount() < 4:
             self.customTable.setColumnCount(4)
         __qtablewidgetitem7 = QTableWidgetItem()
@@ -260,7 +286,7 @@ class Ui_MainWindow(object):
         __qtablewidgetitem10 = QTableWidgetItem()
         self.customTable.setHorizontalHeaderItem(3, __qtablewidgetitem10)
         self.customTable.setObjectName("customTable")
-        self.customTable.setGeometry(QRect(20, 100, 280, 192))
+        self.customTable.setGeometry(QRect(20, 100, 290, 192))
         self.customTable.setEditTriggers(self.customTable.NoEditTriggers)
         self.customTable.verticalHeader().setVisible(False)
         self.customTable.setStyleSheet("QTableWidget { background-color: #ffffff; border: 1px solid #D3D3D3; }"
@@ -269,8 +295,14 @@ class Ui_MainWindow(object):
         self.customTable.resizeColumnsToContents()
         self.p3lab_3 = QLabel(self.tab_3)
         self.p3lab_3.setObjectName("p3lab_3")
-        self.p3lab_3.setGeometry(QRect(20, 20, 280, 43))
+        #self.p3lab_3.setGeometry(QRect(20, 20, 290, 43))
         self.p3lab_3.setStyleSheet("font-family: 'Malgun Gothic'; font-size: 12pt; font-weight: bold;")
+        self.p3lab_3.setAlignment(Qt.AlignCenter)
+
+        tab_3_layout.addWidget(self.p3lab_3, alignment=Qt.AlignCenter)
+        tab_3_layout.addWidget(self.customTable)
+        self.tab_3.setLayout(tab_3_layout)
+
         self.tabWidget.addTab(self.tab_3, "")
         self.tabWidget.setStyleSheet("""
             QTabWidget::pane {
@@ -343,11 +375,11 @@ class Ui_MainWindow(object):
         self.itemname.setText(QCoreApplication.translate("MainWindow", "상품명", None))
         self.itemprice.setText(QCoreApplication.translate("MainWindow", "가격", None))
         self.itemnum.setText(QCoreApplication.translate("MainWindow", "수량", None))
-        self.add_btn.setText(QCoreApplication.translate("MainWindow", "추가", None))
+        self.add_btn.setText(QCoreApplication.translate("MainWindow", "", None))
         self.p3lab.setText(QCoreApplication.translate("MainWindow", "삭제할 상품 정보를 입력하세요", None))
         self.itemname_d.setText(QCoreApplication.translate("MainWindow", "상품명", None))
         self.num_d.setText(QCoreApplication.translate("MainWindow", "수량", None))
-        self.del_btn.setText(QCoreApplication.translate("MainWindow", "삭제", None))
+        self.del_btn.setText(QCoreApplication.translate("MainWindow", "", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_1), QCoreApplication.translate("MainWindow", "상품 관리", None))
         
         ___qtablewidgetitem3 = self.orderTable.horizontalHeaderItem(0)

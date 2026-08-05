@@ -52,13 +52,13 @@ class Ui_MainWindow(object):
         tab_1_layout.setContentsMargins(20, 20, 20, 20)
 
 
-        self.p2lab = QLabel(self.tab_1)
+        '''self.p2lab = QLabel(self.tab_1)
         self.p2lab.setObjectName("p2lab")
         self.p2lab.setStyleSheet("font-family: 'Malgun Gothic'; font-size: 12pt; font-weight: bold;")
 
-        tab_1_layout.addWidget(self.p2lab)
+        tab_1_layout.addWidget(self.p2lab)'''
 
-        self.horizontalLayout_2 = QHBoxLayout()
+        '''self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         #self.p2spacer = QSpacerItem(40, 40, QSizePolicy.Expanding, QSizePolicy.Minimum) #40,20
         #self.horizontalLayout_2.addItem(self.p2spacer)
@@ -88,10 +88,10 @@ class Ui_MainWindow(object):
         self.add_btn.setIconSize(QSize(30, 30))
         self.add_btn.setStyleSheet("background-color: #feffe0; border: none;") 
 
-        self.horizontalLayout_2.addWidget(self.add_btn)
+        self.horizontalLayout_2.addWidget(self.add_btn)'''
 
-        tab_1_layout.addLayout(self.horizontalLayout_2)
-        self.add_btn.clicked.connect(self.order_item)
+        '''tab_1_layout.addLayout(self.horizontalLayout_2)
+        self.add_btn.clicked.connect(self.order_item)'''
 
         scroll_area = QScrollArea(self.tab_1)
         scroll_area.setWidgetResizable(True)
@@ -110,11 +110,35 @@ class Ui_MainWindow(object):
         self.steak = QLabel()
         pixmap = QPixmap('steak_and_cheese.png')
         self.steak.setPixmap(pixmap.scaled(200, 100, Qt.KeepAspectRatio, Qt.SmoothTransformation))
-        self.steak_name = QLabel("스테이크 & 치즈")
-        self.steak_name.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
-        self.steak_name.setStyleSheet("font-family: 'Malgun Gothic'; font-size: 10pt; font-weight: bold;")
+        self.steak_name = "스테이크 앤 치즈"
+        self.steak_label=QLabel(self.steak_name)
+
+        self.steak_plus_button=QPushButton()
+        self.steak_plus_button.setIcon(QIcon('plus.png'))
+        self.steak_plus_button.setFixedSize(30, 30)
+        self.steak_plus_button.setIconSize(QSize(20, 20))
+        self.steak_plus_button.setStyleSheet("background-color: #feffe0; border: none;")
+        self.steak_plus_button.clicked.connect(lambda: self.order_item(self.steak_name))  # 메뉴 이름을 전달
+
+        '''self.steak_minus_button=QPushButton()
+        self.steak_minus_button.setIcon(QIcon('delete.png'))
+        self.steak_minus_button.setFixedSize(30, 30)
+        self.steak_minus_button.setIconSize(QSize(22, 22))
+        self.steak_minus_button.setStyleSheet("background-color: #feffe0; border: none;") 
+        self.steak_minus_button.clicked.connect(lambda: self.order_item(self.steak_name))  # 메뉴 이름을 전달'''
+
+
+        h1 = QHBoxLayout()
+        h1.addWidget(self.steak_plus_button)
+        #h1.addWidget(self.steak_minus_button)
+
+        self.steak_label.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        self.steak_label.setStyleSheet("font-family: 'Malgun Gothic'; font-size: 10pt; font-weight: bold;")
         layout_1.addWidget(self.steak, alignment=Qt.AlignCenter)
-        layout_1.addWidget(self.steak_name, alignment=Qt.AlignCenter)
+        layout_1.addWidget(self.steak_label, alignment=Qt.AlignCenter)
+
+        layout_1.addLayout(h1)
+        
         self.gridLayout.addLayout(layout_1, 0, 0)
 
         # 메뉴 2: 치킨데리야끼
@@ -123,11 +147,34 @@ class Ui_MainWindow(object):
         self.chickentery = QLabel()
         pixmap = QPixmap('chicken_teriyaki.png')
         self.chickentery.setPixmap(pixmap.scaled(200, 100, Qt.KeepAspectRatio, Qt.SmoothTransformation))
-        self.chickentery_name = QLabel("치킨 데리야끼")
-        self.chickentery_name.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
-        self.chickentery_name.setStyleSheet("font-family: 'Malgun Gothic'; font-size: 10pt; font-weight: bold;")
+        self.chickentery_name = "치킨 데리야끼"
+        self.chickentery_label=QLabel(self.chickentery_name)
+
+        self.chickentery_plus_button=QPushButton()
+        self.chickentery_plus_button.setIcon(QIcon('plus.png'))
+        self.chickentery_plus_button.setFixedSize(30, 30)
+        self.chickentery_plus_button.setIconSize(QSize(20, 20))
+        self.chickentery_plus_button.setStyleSheet("background-color: #feffe0; border: none;")
+        self.chickentery_plus_button.clicked.connect(lambda: self.order_item(self.chickentery_name))  # 메뉴 이름을 전달
+
+        '''self.chickentery_minus_button=QPushButton()
+        self.chickentery_minus_button.setIcon(QIcon('delete.png'))
+        self.chickentery_minus_button.setFixedSize(30, 30)
+        self.chickentery_minus_button.setIconSize(QSize(22, 22))
+        self.chickentery_minus_button.setStyleSheet("background-color: #feffe0; border: none;") 
+        self.chickentery_minus_button.clicked.connect(lambda: self.order_item(self.chickentery_name))  # 메뉴 이름을 전달'''
+
+        h2 = QHBoxLayout()
+        h2.addWidget(self.chickentery_plus_button)
+        #h2.addWidget(self.chickentery_minus_button)
+
+        self.chickentery_label.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        self.chickentery_label.setStyleSheet("font-family: 'Malgun Gothic'; font-size: 10pt; font-weight: bold;")
         layout_2.addWidget(self.chickentery, alignment=Qt.AlignCenter)
-        layout_2.addWidget(self.chickentery_name, alignment=Qt.AlignCenter)
+        layout_2.addWidget(self.chickentery_label, alignment=Qt.AlignCenter)
+
+        layout_2.addLayout(h2)
+
         self.gridLayout.addLayout(layout_2, 1, 0)
 
         # 메뉴 3: 피자섭
@@ -136,11 +183,35 @@ class Ui_MainWindow(object):
         self.pizzasub = QLabel()
         pixmap = QPixmap('pizzasub.png')
         self.pizzasub.setPixmap(pixmap.scaled(200, 100, Qt.KeepAspectRatio, Qt.SmoothTransformation))
-        self.pizzasub_name = QLabel("피자썹")
-        self.pizzasub_name.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
-        self.pizzasub_name.setStyleSheet("font-family: 'Malgun Gothic'; font-size: 10pt; font-weight: bold;")
+        self.pizzasub_name = "피자썹"
+        self.pizzasub_label=QLabel(self.pizzasub_name)
+
+        self.pizzasub_plus_button=QPushButton()
+        self.pizzasub_plus_button.setIcon(QIcon('plus.png'))
+        self.pizzasub_plus_button.setFixedSize(30, 30)
+        self.pizzasub_plus_button.setIconSize(QSize(20, 20))
+        self.pizzasub_plus_button.setStyleSheet("background-color: #feffe0; border: none;")
+        self.pizzasub_plus_button.clicked.connect(lambda: self.order_item(self.pizzasub_name))  # 메뉴 이름을 전달
+
+        '''self.pizzasub_minus_button=QPushButton()
+        self.pizzasub_minus_button.setIcon(QIcon('delete.png'))
+        self.pizzasub_minus_button.setFixedSize(30, 30)
+        self.pizzasub_minus_button.setIconSize(QSize(22, 22))
+        self.pizzasub_minus_button.setStyleSheet("background-color: #feffe0; border: none;") 
+        self.pizzasub_minus_button.clicked.connect(lambda: self.order_item(self.pizzasub_name))  # 메뉴 이름을 전달'''
+
+        h3 = QHBoxLayout()
+        h3.addWidget(self.pizzasub_plus_button)
+        # h3.addWidget(self.pizzasub_minus_button)
+
+
+        self.pizzasub_label.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        self.pizzasub_label.setStyleSheet("font-family: 'Malgun Gothic'; font-size: 10pt; font-weight: bold;")
         layout_3.addWidget(self.pizzasub, alignment=Qt.AlignCenter)
-        layout_3.addWidget(self.pizzasub_name, alignment=Qt.AlignCenter)
+        layout_3.addWidget(self.pizzasub_label, alignment=Qt.AlignCenter)
+
+        layout_3.addLayout(h3)
+
         self.gridLayout.addLayout(layout_3, 2, 0)
 
         # 메뉴 4: 써브웨이 클럽
@@ -149,11 +220,33 @@ class Ui_MainWindow(object):
         self.subway_club = QLabel()
         pixmap = QPixmap('subway_club.png')
         self.subway_club.setPixmap(pixmap.scaled(200, 100, Qt.KeepAspectRatio, Qt.SmoothTransformation))
-        self.subway_club_name = QLabel("써브웨이 클럽")
-        self.subway_club_name.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
-        self.subway_club_name.setStyleSheet("font-family: 'Malgun Gothic'; font-size: 10pt; font-weight: bold;")
+        self.subway_club_name = "써브웨이 클럽"
+        self.subway_club_label=QLabel(self.subway_club_name)
+
+        self.subway_club_plus_button=QPushButton()
+        self.subway_club_plus_button.setIcon(QIcon('plus.png'))
+        self.subway_club_plus_button.setFixedSize(30, 30)
+        self.subway_club_plus_button.setIconSize(QSize(20, 20))
+        self.subway_club_plus_button.setStyleSheet("background-color: #feffe0; border: none;")
+        self.subway_club_plus_button.clicked.connect(lambda: self.order_item(self.subway_club_name))  # 메뉴 이름을 전달
+
+        '''self.subway_club_minus_button=QPushButton()
+        self.subway_club_minus_button.setIcon(QIcon('delete.png'))
+        self.subway_club_minus_button.setFixedSize(30, 30)
+        self.subway_club_minus_button.setIconSize(QSize(22, 22))
+        self.subway_club_minus_button.setStyleSheet("background-color: #feffe0; border: none;") 
+        self.subway_club_minus_button.clicked.connect(lambda: self.order_item(self.subway_club_name))  # 메뉴 이름을 전달'''
+
+        h4 = QHBoxLayout()
+        h4.addWidget(self.subway_club_plus_button)
+        #h4.addWidget(self.subway_club_minus_button)
+
+        self.subway_club_label.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        self.subway_club_label.setStyleSheet("font-family: 'Malgun Gothic'; font-size: 10pt; font-weight: bold;")
         layout_4.addWidget(self.subway_club, alignment=Qt.AlignCenter)
-        layout_4.addWidget(self.subway_club_name, alignment=Qt.AlignCenter)
+        layout_4.addWidget(self.subway_club_label, alignment=Qt.AlignCenter)
+
+        layout_4.addLayout(h4)
         self.gridLayout.addLayout(layout_4, 0, 1)
 
 
@@ -163,11 +256,32 @@ class Ui_MainWindow(object):
         self.rotisseri_bbq = QLabel()
         pixmap = QPixmap('rotisseri_bbq.png')
         self.rotisseri_bbq.setPixmap(pixmap.scaled(200, 100, Qt.KeepAspectRatio, Qt.SmoothTransformation))
-        self.rotisseri_bbq_name = QLabel("로티세리 바비큐")
-        self.rotisseri_bbq_name.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
-        self.rotisseri_bbq_name.setStyleSheet("font-family: 'Malgun Gothic'; font-size: 10pt; font-weight: bold;")
+        self.rotisseri_bbq_name = "로티세리 바비큐 치킨"
+        self.rotisseri_bbq_label = QLabel(self.rotisseri_bbq_name)
+
+        self.rotisseri_bbq_plus_button=QPushButton()
+        self.rotisseri_bbq_plus_button.setIcon(QIcon('plus.png'))
+        self.rotisseri_bbq_plus_button.setFixedSize(30, 30)
+        self.rotisseri_bbq_plus_button.setIconSize(QSize(20, 20))
+        self.rotisseri_bbq_plus_button.setStyleSheet("background-color: #feffe0; border: none;")
+        self.rotisseri_bbq_plus_button.clicked.connect(lambda: self.order_item(self.rotisseri_bbq_name))  # 메뉴 이름을 전달
+
+        '''self.rotisseri_bbq_minus_button=QPushButton()
+        self.rotisseri_bbq_minus_button.setIcon(QIcon('delete.png'))
+        self.rotisseri_bbq_minus_button.setFixedSize(30, 30)
+        self.rotisseri_bbq_minus_button.setIconSize(QSize(22, 22))
+        self.rotisseri_bbq_minus_button.setStyleSheet("background-color: #feffe0; border: none;") 
+        self.rotisseri_bbq_minus_button.clicked.connect(lambda: self.order_item(self.rotisseri_bbq_name))  # 메뉴 이름을 전달'''
+
+        h5 = QHBoxLayout()
+        h5.addWidget(self.rotisseri_bbq_plus_button)
+        #h5.addWidget(self.rotisseri_bbq_minus_button)
+
+        self.rotisseri_bbq_label.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        self.rotisseri_bbq_label.setStyleSheet("font-family: 'Malgun Gothic'; font-size: 10pt; font-weight: bold;")
         layout_5.addWidget(self.rotisseri_bbq, alignment=Qt.AlignCenter)
-        layout_5.addWidget(self.rotisseri_bbq_name, alignment=Qt.AlignCenter)
+        layout_5.addWidget(self.rotisseri_bbq_label, alignment=Qt.AlignCenter)
+        layout_5.addLayout(h5)
         self.gridLayout.addLayout(layout_5, 1, 1)
         
 
@@ -176,11 +290,32 @@ class Ui_MainWindow(object):
         self.roasted_chicken = QLabel()
         pixmap = QPixmap('roasted_chicken.png')
         self.roasted_chicken.setPixmap(pixmap.scaled(200, 100, Qt.KeepAspectRatio, Qt.SmoothTransformation))
-        self.roasted_chicken_name = QLabel("로스티드 치킨")
-        self.roasted_chicken_name.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
-        self.roasted_chicken_name.setStyleSheet("font-family: 'Malgun Gothic'; font-size: 10pt; font-weight: bold;")
+        self.roasted_chicken_name = "로스티드 치킨"
+        self.roasted_chicken_label = QLabel(self.roasted_chicken_name)
+
+        self.roasted_chicken_plus_button=QPushButton()
+        self.roasted_chicken_plus_button.setIcon(QIcon('plus.png'))
+        self.roasted_chicken_plus_button.setFixedSize(30, 30)
+        self.roasted_chicken_plus_button.setIconSize(QSize(20, 20))
+        self.roasted_chicken_plus_button.setStyleSheet("background-color: #feffe0; border: none;")
+        self.roasted_chicken_plus_button.clicked.connect(lambda: self.order_item(self.roasted_chicken_name))  # 메뉴 이름을 전달
+
+        '''self.roasted_chicken_minus_button=QPushButton()
+        self.roasted_chicken_minus_button.setIcon(QIcon('delete.png'))
+        self.roasted_chicken_minus_button.setFixedSize(30, 30)
+        self.roasted_chicken_minus_button.setIconSize(QSize(22, 22))
+        self.roasted_chicken_minus_button.setStyleSheet("background-color: #feffe0; border: none;") 
+        self.roasted_chicken_minus_button.clicked.connect(lambda: self.order_item(self.roasted_chicken_name))  # 메뉴 이름을 전달'''
+
+        h6 = QHBoxLayout()
+        h6.addWidget(self.roasted_chicken_plus_button)
+        #h6.addWidget(self.roasted_chicken_minus_button)
+
+        self.roasted_chicken_label.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        self.roasted_chicken_label.setStyleSheet("font-family: 'Malgun Gothic'; font-size: 10pt; font-weight: bold;")
         layout_6.addWidget(self.roasted_chicken, alignment=Qt.AlignCenter)
-        layout_6.addWidget(self.roasted_chicken_name, alignment=Qt.AlignCenter)
+        layout_6.addWidget(self.roasted_chicken_label, alignment=Qt.AlignCenter)
+        layout_6.addLayout(h6)
         self.gridLayout.addLayout(layout_6, 2, 1)
 
 
@@ -188,23 +323,42 @@ class Ui_MainWindow(object):
         layout_7.setSpacing(5)
         self.shrimp = QLabel()
         pixmap = QPixmap('shrimp.png')
+
+        self.shrimp_plus_button=QPushButton()
+        self.shrimp_plus_button.setIcon(QIcon('plus.png'))
+        self.shrimp_plus_button.setFixedSize(30, 30)
+        self.shrimp_plus_button.setIconSize(QSize(20, 20))
+        self.shrimp_plus_button.setStyleSheet("background-color: #feffe0; border: none;")
+        self.shrimp_plus_button.clicked.connect(lambda: self.order_item(self.shrimp_name))  # 메뉴 이름을 전달
+
+        '''self.shrimp_minus_button=QPushButton()
+        self.shrimp_minus_button.setIcon(QIcon('delete.png'))
+        self.shrimp_minus_button.setFixedSize(30, 30)
+        self.shrimp_minus_button.setIconSize(QSize(22, 22))
+        self.shrimp_minus_button.setStyleSheet("background-color: #feffe0; border: none;") 
+        self.shrimp_minus_button.clicked.connect(lambda: self.order_item(self.shrimp_name))  # 메뉴 이름을 전달'''
+
+        h7 = QHBoxLayout()
+        h7.addWidget(self.shrimp_plus_button)
+        #h7.addWidget(self.shrimp_minus_button)
+
         self.shrimp.setPixmap(pixmap.scaled(200, 100, Qt.KeepAspectRatio, Qt.SmoothTransformation))
-        self.shrimp_name = QLabel("쉬림프")
-        self.shrimp_name.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
-        self.shrimp_name.setStyleSheet("font-family: 'Malgun Gothic'; font-size: 10pt; font-weight: bold;")
+        self.shrimp_name = "쉬림프"
+        self.shrimp_label = QLabel(self.shrimp_name)
+        self.shrimp_label.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        self.shrimp_label.setStyleSheet("font-family: 'Malgun Gothic'; font-size: 10pt; font-weight: bold;")
         layout_7.addWidget(self.shrimp, alignment=Qt.AlignCenter)
-        layout_7.addWidget(self.shrimp_name, alignment=Qt.AlignCenter)
+        layout_7.addWidget(self.shrimp_label, alignment=Qt.AlignCenter)
+
+        layout_7.addLayout(h7)
         self.gridLayout.addLayout(layout_7, 3, 0)
 
-        
 
         scroll_area.setWidget(scroll_content)
         tab_1_layout.addWidget(scroll_area)
         self.tabWidget.addTab(self.tab_1, "")
 
         self.verticalLayout.addWidget(self.tabWidget)
-        #self.stackedWidget.raise_()
-        #self.itemTable.raise_()
 
         # Tab 2
         self.tab_2 = QWidget()
@@ -270,23 +424,17 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", "MainWindow", None))
 
-        '''self.selectWork.setText(QCoreApplication.translate("MainWindow", "수행할 작업을 선택하세요", None))
-        self.add_new.setText(QCoreApplication.translate("MainWindow", "", None))
-        self.delete_cur.setText(QCoreApplication.translate("MainWindow", "", None))'''
-        self.p2lab.setText(QCoreApplication.translate("MainWindow", "주문할 상품 정보를 입력하세요", None))
+        '''self.p2lab.setText(QCoreApplication.translate("MainWindow", "주문할 상품 정보를 입력하세요", None))
         self.itemname.setText(QCoreApplication.translate("MainWindow", "상품명", None))
-        #self.itemprice.setText(QCoreApplication.translate("MainWindow", "가격", None))
+
         self.itemnum.setText(QCoreApplication.translate("MainWindow", "수량", None))
-        self.add_btn.setText(QCoreApplication.translate("MainWindow", "", None))
-        '''self.p3lab.setText(QCoreApplication.translate("MainWindow", "삭제할 상품 정보를 입력하세요", None))
-        self.itemname_d.setText(QCoreApplication.translate("MainWindow", "상품명", None))
-        self.num_d.setText(QCoreApplication.translate("MainWindow", "수량", None))
-        self.del_btn.setText(QCoreApplication.translate("MainWindow", "삭제", None))'''
+        self.add_btn.setText(QCoreApplication.translate("MainWindow", "", None))'''
+
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_1), QCoreApplication.translate("MainWindow", "메뉴", None))
-        self.steak_name.setText(QCoreApplication.translate("MainWindow", "스테이크 앤 치즈", None))
-        self.chickentery_name.setText(QCoreApplication.translate("MainWindow", "치킨 데리야끼", None))
-        self.pizzasub_name.setText(QCoreApplication.translate("MainWindow", "피자썹", None))
-        self.subway_club_name.setText(QCoreApplication.translate("MainWindow", "써브웨이 클럽", None))
+        #self.steak_name.setText(QCoreApplication.translate("MainWindow", "스테이크 앤 치즈", None))
+        #self.chickentery_name.setText(QCoreApplication.translate("MainWindow", "치킨 데리야끼", None))
+        #self.pizzasub_name.setText(QCoreApplication.translate("MainWindow", "피자썹", None))
+        #self.subway_club_name.setText(QCoreApplication.translate("MainWindow", "써브웨이 클럽", None))
 
         self.p3lab_2.setText(QCoreApplication.translate("MainWindow", "총 주문 현황", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("MainWindow", "Mypage", None))
@@ -321,19 +469,23 @@ class Ui_MainWindow(object):
             self.customTable.setItem(r, 3, QTableWidgetItem(addr))
         self.customTable.resizeColumnsToContents()
 
-    def order_item(self): # order_item(self,client,item,num,orderdate)
-        name = self.name_insert.text().strip()
-        stock = self.num_insert.text().strip()
+    def order_item(self,name): # order_item(self,client,item,num,orderdate)
+
+        # 수정 예정
+        name = name.strip()
+        #stock = self.num_insert.text().strip()
 
         # email
-        if not name or not stock:
+        if not name:
             QMessageBox.warning(None, "오류", "주문할 상품 이름과 수량을 모두 입력하세요.")
             return
-        ok = self.db.order_item(self.user_email, name, stock)
+        
+        print(name)
+        ok = self.db.order_item(self.user_email, name, 1) # 1개 추가됨
         if ok:
             QMessageBox.information(None, "완료", "주문되었습니다.")
-            self.name_insert.clear()
-            self.num_insert.clear()
+            #self.name_insert.clear()
+            #self.num_insert.clear()
             #self.load_orders()
             #self.stackedWidget.setCurrentIndex(0)
         else:
