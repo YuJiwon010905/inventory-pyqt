@@ -116,6 +116,18 @@ class DB:
                 count, =cur.fetchone()
                 return count==1
 
+    # 계정 출력 관련
+    def print_account(self,email):
+        sql="SELECT * FROM accounts WHERE email=%s"
+        with self.connect() as conn:
+            with conn.cursor(pymysql.cursors.DictCursor) as cur:
+                cur.execute(sql,(email))
+                usr=cur.fetchone()
+                print(usr)
+                return usr['name'],usr['email'],usr['pw'],usr['addr']
+
+            
+
     # 계정 추가(회원가입) + 기존 계정 업데이트
     def insert_account(self,name,email,pw,addr):
         # 영향을 받는 것: account 데이터베이스

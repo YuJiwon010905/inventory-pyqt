@@ -24,7 +24,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow, user_email=None):  # 사용자 이메일을 전달받는 매개변수 추가
         if not MainWindow.objectName():
             MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(400, 600)
+        MainWindow.resize(600, 900) # desktop (400,600)
         self.db=DB(**DB_CONFIG)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -363,12 +363,43 @@ class Ui_MainWindow(object):
         # Tab 2
         self.tab_2 = QWidget()
         self.tab_2.setObjectName("tab_2")
-        self.tab_2.setStyleSheet("QWidget { background-color: #feffe0; }") 
+        self.tab_2.setStyleSheet("QWidget { background-color: #feffe0; }")
 
-        self.p3lab_2 = QLabel(self.tab_2)
+        tab_2_layout = QVBoxLayout(self.tab_2)
+        tab_2_layout.setContentsMargins(20, 20, 20, 20)
+        tab_2_layout.setAlignment(Qt.AlignTop)
+
+        self.p3lab_2 = QLabel("회원 정보")
         self.p3lab_2.setObjectName("p3lab_2")
-        self.p3lab_2.setGeometry(QRect(20, 20, 280, 43))
-        self.p3lab_2.setStyleSheet("font-family: 'Malgun Gothic'; font-size: 12pt; font-weight: bold;")
+        #self.p3lab_2.setGeometry(QRect(20, 20, 280, 43))
+        self.p3lab_2.setStyleSheet("font-family: 'Malgun Gothic'; font-size: 11pt; font-weight: bold;")
+
+        name,email,pw,addr=self.db.print_account(user_email)
+        self.print_name=QLabel("이름: "+ str(name))
+        self.print_email=QLabel("이메일: "+str(email))
+        self.print_pw=QLabel("비밀번호: "+str(pw))
+        self.print_addr=QLabel("주소: "+str(addr))
+
+        self.print_name.setStyleSheet("font-family: 'Malgun Gothic';")
+        self.print_email.setStyleSheet("font-family: 'Malgun Gothic';")
+        self.print_pw.setStyleSheet("font-family: 'Malgun Gothic';")
+        self.print_addr.setStyleSheet("font-family: 'Malgun Gothic';")
+
+
+        self.p3lab_2.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        self.print_name.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        self.print_email.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        self.print_pw.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        self.print_addr.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+
+        tab_2_layout.addWidget(self.p3lab_2,alignment=Qt.AlignCenter)
+        tab_2_layout.addWidget(self.print_name)
+        tab_2_layout.addWidget(self.print_email)
+        tab_2_layout.addWidget(self.print_pw)
+        tab_2_layout.addWidget(self.print_addr)
+
+        # 주문내역 테이블도 추가
+
         self.tabWidget.addTab(self.tab_2, "")
         self.tabWidget.setStyleSheet("""
                     QTabWidget::pane {
@@ -386,8 +417,8 @@ class Ui_MainWindow(object):
                         color: #333333;              /* 기본 글자 색상 */
                         font-size: 13pt;             /* 글자 크기 */
                         padding: 10px 10px;          /* 탭 여백 */
-                        min-height: 80px;
-                        min-width: 30px;
+                        min-height: 160px;
+                        min-width: 50px;
                         border-top-left-radius: 6px;
                         border-top-right-radius: 6px;
                     }
@@ -436,7 +467,7 @@ class Ui_MainWindow(object):
         #self.pizzasub_name.setText(QCoreApplication.translate("MainWindow", "피자썹", None))
         #self.subway_club_name.setText(QCoreApplication.translate("MainWindow", "써브웨이 클럽", None))
 
-        self.p3lab_2.setText(QCoreApplication.translate("MainWindow", "총 주문 현황", None))
+        #self.p3lab_2.setText(QCoreApplication.translate("MainWindow", "회원 정보", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("MainWindow", "Mypage", None))
         
 
@@ -506,6 +537,8 @@ class Ui_MainWindow(object):
             #self.stackedWidget.setCurrentIndex(0)
         else:
             QMessageBox.critical(None, "실패", "삭제 중 오류가 발생했습니다.")
+
+
 
     #def btn_func1(self):
         #self.stackedWidget.setCurrentIndex(1)

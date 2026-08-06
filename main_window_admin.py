@@ -24,7 +24,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(400, 600)
+        MainWindow.resize(600, 900) #desktop (400,600)
         self.db=DB(**DB_CONFIG)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -70,7 +70,7 @@ class Ui_MainWindow(object):
         
         self.stackedWidget = QStackedWidget(self.tab_1)
         self.stackedWidget.setObjectName("stackedWidget")
-        self.stackedWidget.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Maximum)
+        self.stackedWidget.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Maximum) # Maximum
         #self.stackedWidget.setGeometry(QRect(10, 10, 300, 80)) #10,10
 
         # Page 1
@@ -86,7 +86,7 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_1 = QHBoxLayout()
         self.horizontalLayout_1.setObjectName("horizontalLayout_1")
-        self.horizontalLayout_1.setSizeConstraint(QLayout.SetDefaultConstraint)
+        self.horizontalLayout_1.setSizeConstraint(QLayout.SetDefaultConstraint) ## 이 부분 주석처리 시 어케 되는지?
         #self.p1spacer = QSpacerItem(40, 120, QSizePolicy.Expanding, QSizePolicy.Minimum) #40,20
 
         #self.horizontalLayout_1.addItem(self.p1spacer)
@@ -320,10 +320,10 @@ class Ui_MainWindow(object):
                 color: #333333;              /* 기본 글자 색상 */
                 font-size: 13pt;             /* 글자 크기 */
                 padding: 10px 10px;          /* 탭 여백 */
-                min-height: 80px;
-                min-width: 30px;
-                border-top-left-radius: 6px;
-                border-top-right-radius: 6px;
+                min-height: 160px;           /*높이 80 데탑*/
+                min-width: 50px;             /*너비 30 데탑*/
+                border-top-left-radius: 6px;  /*6*/
+                border-top-right-radius: 6px; /*6*/
             }
             QTabBar::tab:selected {
                 background-color: #02ad07;   /* 선택된 탭 배경 (초록) */
