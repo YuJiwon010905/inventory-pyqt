@@ -24,7 +24,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow, user_email=None):  # 사용자 이메일을 전달받는 매개변수 추가
         if not MainWindow.objectName():
             MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(600, 900) # desktop (400,600)
+        MainWindow.resize(400, 600) # desktop (400,600)
         self.db=DB(**DB_CONFIG)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")

@@ -10,8 +10,7 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     login = LoginDialog() ### 수정필요
 
-    # 사용자 로그인 기능 및 사용자 버전은 추후 구현 예정.
-    #if login.adminlogin.exec_() == LoginDialog.Accepted: # 사용자 로그인 성공시도 추후 구현 예정.지금은 관리자만 가능
+    #if login.adminlogin.exec_() == LoginDialog.Accepted: # 수정 예정
     login.exec_()
 
     if login.loginmode == "user":
@@ -27,6 +26,9 @@ if __name__ == "__main__":
         ui=AdminMainWindow()
         ui.setupUi(MainWindow)
         MainWindow.show()
+        sys.exit(app.exec_())
+
+    elif login.loginmode=="signup":
         sys.exit(app.exec_())
 
     else:
